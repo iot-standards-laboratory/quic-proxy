@@ -11,7 +11,7 @@ type FrameI interface {
 	write(b io.Writer) error
 	SetFin()
 	IsFin() bool
-	GetUnderlyingProtocol() uint8
+	UnderlyingProtocol() uint8
 }
 
 // func (f *_CCoAPFrame) Type() SubframeType {

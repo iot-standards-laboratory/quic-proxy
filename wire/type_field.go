@@ -32,6 +32,7 @@ func (t typeField) isFin() bool {
 	return uint8(t)&MASKFIN != 0
 }
 
+// make a type field for frame
 func newTypeField(frameType, protocol, fin uint8) typeField {
 	return typeField((frameType << 2) + (protocol << 1) + fin)
 }
