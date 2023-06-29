@@ -1,7 +1,8 @@
 package wire
 
 import (
-	"bytes"
+	"io"
+	"quicproxy/ccoapvarint"
 	"quicproxy/protocol"
 )
 
@@ -16,6 +17,20 @@ func (f *dataFrame) Length() protocol.ByteCount {
 
 // func ()
 
-func parseDataFrame(r *bytes.Reader) (*dataFrame, error) {
-	return nil, nil
+func parseDataFrame(r ccoapvarint.Reader) (*dataFrame, error) {
+	l, err := ccoapvarint.Read(r)
+	if err != nil {
+		panic(err)
+	}
+
+	br, err := r.ReadBytes(l)
+	if err != nil {
+		panic(err)
+	}
+
+	payload, err := io.ReadAll(br)
+	if err != nil {
+		panic(err)
+	}
+	return &dataFrame{payload: payload}, nil
 }
